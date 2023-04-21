@@ -1,0 +1,102 @@
+﻿@model UserRegistrationViewModel
+
+
+<h1> Regisration User</h1>
+
+
+<html>
+<head>
+    <title>
+    </title>
+    
+
+</head>
+<body>
+    <form class="form-horizontal" asp-controller="User" asp-action="Registration" method="post">
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="Email"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="Password"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="ConfirmPassword"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="ConfirmPassword">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="FirstName"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="FirstName">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="LastName"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="LastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="MobileNumber"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="MobileNumber">
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+         <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="AdharNumber"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="AdharNumber">
+                <span asp-validation-for="AdharNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="GenderId"></label>
+
+            <select class="col-sm-10"  asp-for="GenderId">
+                <option value="">-Select Gender-</option>
+                @{
+                    foreach(var gen in ViewBag.GenderList)
+                    {
+                        <option value="@gen.Id" >@gen.Text</option>
+                    }
+
+                    }
+            </select>
+
+
+            <span asp-validation-for="GenderId" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+
