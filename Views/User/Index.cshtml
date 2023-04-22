@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<UserRegistrationViewModel>
+
+<h1>Index view</h1>
+
+<table class="table tbl-primary">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>MobileNubmer</th>
+            <th>AdharNumber</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @{
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.GenderId</td>
+                    <td>@user.AdharNumber</td>
+                    <td>@user.MobileNumber</td>
+                    
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

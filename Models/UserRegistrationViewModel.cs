@@ -36,6 +36,6 @@ namespace ThreeLayerArchitecture.Models
 
         public string? Category { get; set; }
 
-        public bool? TermsConditions { get; set; }
+        public bool TermsConditions { get; set; }
     }
 }
