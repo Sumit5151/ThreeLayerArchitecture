@@ -1,5 +1,6 @@
 ﻿using ThreeLayerArchitecture.DAL;
 using ThreeLayerArchitecture.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ThreeLayerArchitecture.BAL
 {
@@ -66,7 +67,11 @@ namespace ThreeLayerArchitecture.BAL
         public List<UserRegistrationViewModel> GetAllUsers()
         {
             SecondMvcappDbContext db = new SecondMvcappDbContext();
-            List<User> users = db.Users.ToList();
+
+            List<User> usersPrevious = db.Users.ToList();
+
+            List<User> users = db.Users
+                                   .Include(user=>user.Gender).ToList();
 
             List<UserRegistrationViewModel> userRegistrationViewModels = new List<UserRegistrationViewModel>();
 
@@ -74,25 +79,50 @@ namespace ThreeLayerArchitecture.BAL
             {
                 UserRegistrationViewModel userVM = new UserRegistrationViewModel();
                 userVM.Id = user.Id;
-                userVM.Email= user.Email;
+                userVM.Email = user.Email;
                 userVM.FirstName = user.FirstName;
                 userVM.LastName = user.LastName;
-                //userVM.GenderId = user.Gender;
-                userVM.Category= user.Category;
+                userVM.GenderId = user.GenderId;
+                userVM.GenderName = user.Gender.Text;
+                userVM.Category = user.Category;
                 userVM.MobileNumber = user.MobileNumber;
+                userVM.AdharNumber = user.AdharNumber;
+
 
                 userRegistrationViewModels.Add(userVM);
 
             }
 
-
-             
-
-
-
-
             return userRegistrationViewModels;
 
         }
+
+
+        public void DeleteUser(int id)
+        {
+            SecondMvcappDbContext db = new SecondMvcappDbContext();
+
+            var user = GetUser(id);
+            if(user !=null)
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }           
+
+        }
+
+
+        public User GetUser(int id)
+        {
+            SecondMvcappDbContext db = new SecondMvcappDbContext();
+            var user = db.Users.FirstOrDefault(user => user.Id == id);
+            return user;
+        }
+
+
+
+
+
+        
     }
 }

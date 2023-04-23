@@ -44,15 +44,14 @@ namespace ThreeLayerArchitecture.Controllers
                 ModelState.AddModelError("Category", "Please select category");
             }
 
-
-
             if (ModelState.IsValid == true)
             {
                 userRepository.CreateNewUser(userVM);
-            }
+                return RedirectToAction("Index");
 
+            }    
+            
 
-           
             ViewBag.GenderList = userRepository.GetAllGenders();
             ViewBag.CategoryList = userRepository.GetAllCatgories();
             return View("UserRegistration",userVM);
@@ -75,6 +74,58 @@ namespace ThreeLayerArchitecture.Controllers
 
 
 
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            UserRepository userRepository = new UserRepository();
+            userRepository.DeleteUser(id);
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+
+            UserRepository userRepository = new UserRepository();            
+
+
+            return View("UserRegistration", );
+
+        }
+
+        [HttpPost]
+        public IActionResult Update(UserRegistrationViewModel userVM)
+        {
+            UserRepository userRepository = new UserRepository();
+
+            if (userVM.TermsConditions == false)
+            {
+                ModelState.AddModelError("TermsConditions", "Please accept terms and condition");
+            }
+            if (userVM.Category == null)
+            {
+                ModelState.AddModelError("Category", "Please select category");
+            }
+
+            if (ModelState.IsValid == true)
+            {
+                userRepository.CreateNewUser(userVM);
+                return RedirectToAction("Index");
+
+            }
+
+
+            ViewBag.GenderList = userRepository.GetAllGenders();
+            ViewBag.CategoryList = userRepository.GetAllCatgories();
+            return View("UserRegistration", userVM);
         }
     }
 }
