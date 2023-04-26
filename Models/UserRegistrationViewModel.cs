@@ -1,10 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using ThreeLayerArchitecture.DAL;
 
 namespace ThreeLayerArchitecture.Models
 {
-    public class UserRegistrationViewModel
+    public sealed class UserRegistrationViewModel
     {
+
+
+        public UserRegistrationViewModel()
+        {
+        }
+
+        public UserRegistrationViewModel(User user)
+        {
+            this.Id = user.Id;
+            this.Email = user.Email;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.GenderId = user.GenderId;
+            this.GenderName = user.Gender.Text;
+            this.Category = user.Category;
+            this.MobileNumber = user.MobileNumber;
+            this.AdharNumber = user.AdharNumber;
+
+        }
+
         public int Id { get; set; }
         [Required]
         [EmailAddress]

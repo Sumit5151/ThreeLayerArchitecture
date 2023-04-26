@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using ThreeLayerArchitecture.Models;
 
 namespace ThreeLayerArchitecture.DAL;
 
 public partial class User
 {
+
+    private int test { get; set; }
     public int Id { get; set; }
 
     public string? Email { get; set; }

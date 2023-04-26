@@ -1,6 +1,7 @@
 ﻿using ThreeLayerArchitecture.DAL;
 using ThreeLayerArchitecture.Models;
 using Microsoft.EntityFrameworkCore;
+using ThreeLayerArchitecture.Utility;
 
 namespace ThreeLayerArchitecture.BAL
 {
@@ -12,23 +13,16 @@ namespace ThreeLayerArchitecture.BAL
             var genders = db.Genders.ToList();
             return genders;
         }
-
-
+                
         public void CreateNewUser(UserRegistrationViewModel userVM)
         {
             SecondMvcappDbContext db = new SecondMvcappDbContext();
-
+            //User user = new User(userVM);
 
             User user = new User();
-            user.Email = userVM.Email;
-            user.FirstName = userVM.FirstName;
-            user.LastName = userVM.LastName;
-            user.GenderId = userVM.GenderId;
-            user.Password = userVM.Password;
-            user.MobileNumber = userVM.MobileNumber;
-            user.AdharNumber = userVM.AdharNumber;
-            user.Category = userVM.Category;
-            user.TermsConditions = userVM.TermsConditions;
+            user.ConvertUserVMToUserDTO(userVM);
+            
+
 
             db.Users.Add(user);
             db.SaveChanges();
@@ -68,29 +62,19 @@ namespace ThreeLayerArchitecture.BAL
         {
             SecondMvcappDbContext db = new SecondMvcappDbContext();
 
-            List<User> usersPrevious = db.Users.ToList();
+            //List<User> usersPrevious = db.Users.ToList();
 
-            List<User> users = db.Users
-                                   .Include(user=>user.Gender).ToList();
+            List<User> users = db.Users.Include(user => user.Gender).ToList();
 
             List<UserRegistrationViewModel> userRegistrationViewModels = new List<UserRegistrationViewModel>();
 
             foreach (var user in users)
             {
+                //UserRegistrationViewModel userVM = new UserRegistrationViewModel(user);
                 UserRegistrationViewModel userVM = new UserRegistrationViewModel();
-                userVM.Id = user.Id;
-                userVM.Email = user.Email;
-                userVM.FirstName = user.FirstName;
-                userVM.LastName = user.LastName;
-                userVM.GenderId = user.GenderId;
-                userVM.GenderName = user.Gender.Text;
-                userVM.Category = user.Category;
-                userVM.MobileNumber = user.MobileNumber;
-                userVM.AdharNumber = user.AdharNumber;
-
+                userVM.ConvertUserDTOToUserVM(user);
 
                 userRegistrationViewModels.Add(userVM);
-
             }
 
             return userRegistrationViewModels;
@@ -103,11 +87,11 @@ namespace ThreeLayerArchitecture.BAL
             SecondMvcappDbContext db = new SecondMvcappDbContext();
 
             var user = GetUser(id);
-            if(user !=null)
+            if (user != null)
             {
                 db.Users.Remove(user);
                 db.SaveChanges();
-            }           
+            }
 
         }
 
@@ -121,8 +105,10 @@ namespace ThreeLayerArchitecture.BAL
 
 
 
-
-
         
+
+
+
+
     }
 }

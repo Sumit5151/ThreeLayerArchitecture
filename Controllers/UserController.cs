@@ -97,7 +97,7 @@ namespace ThreeLayerArchitecture.Controllers
             UserRepository userRepository = new UserRepository();            
 
 
-            return View("UserRegistration", );
+            return View("UserRegistration");
 
         }
 
