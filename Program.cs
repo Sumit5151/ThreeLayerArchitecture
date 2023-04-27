@@ -1,7 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using ThreeLayerArchitecture.BAL;
+using ThreeLayerArchitecture.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddDbContext<SecondMvcappDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("SecondMVCAppDBCS")
+    ));
+
+
+
+
+builder.Services.AddScoped<IUserRepository, UserRepositorySQLDB>();
+
+
+
 
 var app = builder.Build();
 

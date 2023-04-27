@@ -7,11 +7,17 @@ namespace ThreeLayerArchitecture.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+       private readonly IUserRepository userRepository;
+      
+        public UserController(IUserRepository _userRepository)
         {
-            UserRepository userRepository = new UserRepository();
-          var userVMs=  userRepository.GetAllUsers();
+            this.userRepository = _userRepository;
+        }
 
+
+        public IActionResult Index()
+        {           
+          var userVMs=  userRepository.GetAllUsers();
             return View(userVMs);
         }
 
@@ -20,8 +26,6 @@ namespace ThreeLayerArchitecture.Controllers
         {
             UserRegistrationViewModel UserVM = new UserRegistrationViewModel();
            
-
-            UserRepository userRepository = new UserRepository();
             ViewBag.GenderList = userRepository.GetAllGenders();
             ViewBag.CategoryList = userRepository.GetAllCatgories();
 
@@ -33,7 +37,7 @@ namespace ThreeLayerArchitecture.Controllers
         [HttpPost]
         public IActionResult Registration(UserRegistrationViewModel userVM)
         {
-            UserRepository userRepository = new UserRepository();
+            
 
             if(userVM.TermsConditions == false)
             {
@@ -80,7 +84,8 @@ namespace ThreeLayerArchitecture.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            UserRepository userRepository = new UserRepository();
+            
+            
             userRepository.DeleteUser(id);
             return RedirectToAction("Index");
         }
@@ -93,10 +98,6 @@ namespace ThreeLayerArchitecture.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-
-            UserRepository userRepository = new UserRepository();            
-
-
             return View("UserRegistration");
 
         }
@@ -104,7 +105,7 @@ namespace ThreeLayerArchitecture.Controllers
         [HttpPost]
         public IActionResult Update(UserRegistrationViewModel userVM)
         {
-            UserRepository userRepository = new UserRepository();
+            
 
             if (userVM.TermsConditions == false)
             {

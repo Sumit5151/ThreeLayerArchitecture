@@ -24,7 +24,7 @@ public partial class SecondMvcappDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("server=SUMIT; database=SecondMVCAppDB; Integrated security=true; TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("name=SecondMVCAppDBCS");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

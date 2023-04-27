@@ -5,24 +5,27 @@ using ThreeLayerArchitecture.Utility;
 
 namespace ThreeLayerArchitecture.BAL
 {
-    public class UserRepository
+    public class UserRepositorySQLDB: IUserRepository
     {
-        public List<Gender> GetAllGenders()
+        private readonly SecondMvcappDbContext db;
+        public UserRepositorySQLDB(SecondMvcappDbContext _db)
         {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
+            this.db = _db;
+        }
+
+
+        public List<Gender> GetAllGenders()
+        {          
             var genders = db.Genders.ToList();
             return genders;
         }
                 
         public void CreateNewUser(UserRegistrationViewModel userVM)
-        {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
+        {           
             //User user = new User(userVM);
 
             User user = new User();
             user.ConvertUserVMToUserDTO(userVM);
-            
-
 
             db.Users.Add(user);
             db.SaveChanges();
@@ -31,8 +34,6 @@ namespace ThreeLayerArchitecture.BAL
 
         public List<Category> GetAllCatgories()
         {
-
-
             List<Category> categories = new List<Category>();
 
             Category category1 = new Category();
@@ -59,8 +60,7 @@ namespace ThreeLayerArchitecture.BAL
 
 
         public List<UserRegistrationViewModel> GetAllUsers()
-        {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
+        {            
 
             //List<User> usersPrevious = db.Users.ToList();
 
@@ -84,8 +84,6 @@ namespace ThreeLayerArchitecture.BAL
 
         public void DeleteUser(int id)
         {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
-
             var user = GetUser(id);
             if (user != null)
             {
@@ -97,18 +95,10 @@ namespace ThreeLayerArchitecture.BAL
 
 
         public User GetUser(int id)
-        {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
+        {           
             var user = db.Users.FirstOrDefault(user => user.Id == id);
             return user;
         }
-
-
-
-        
-
-
-
 
     }
 }
