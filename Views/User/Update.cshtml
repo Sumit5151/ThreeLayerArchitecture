@@ -1,0 +1,91 @@
+﻿@model UserUpdateViewModel
+
+<h1>Update view</h1>
+
+<html>
+<head>
+    <title>
+    </title>
+
+
+</head>
+<body>
+    <form class="form-horizontal" asp-controller="User" asp-action="Update" method="post">
+
+             
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="FirstName"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="FirstName">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="LastName"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="LastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="MobileNumber"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="MobileNumber">
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="AdharNumber"></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="AdharNumber">
+                <span asp-validation-for="AdharNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" asp-for="GenderId"></label>
+
+            <select class="col-sm-10" asp-for="GenderId">
+                <option value="">-Select Gender-</option>
+                @{
+                    foreach (var gen in ViewBag.GenderList)
+                    {
+                        <option value="@gen.Id">@gen.Text</option>
+                    }
+
+                }
+            </select>
+            <span asp-validation-for="GenderId" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+            Category
+            @{
+                foreach (var item in ViewBag.CategoryList)
+                {
+                    <label asp-for="Category">
+                        <input type="radio" name="Category" value="@item.Name">@item.Name
+                    </label>
+                }
+                 <span asp-validation-for="Category" class="text-danger"></span>
+            }
+        </div>        
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>
+

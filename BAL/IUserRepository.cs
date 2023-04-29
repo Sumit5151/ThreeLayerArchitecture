@@ -11,6 +11,8 @@ namespace ThreeLayerArchitecture.BAL
          List<UserRegistrationViewModel> GetAllUsers();
          void DeleteUser(int id);
          User GetUser(int id);
-        
+        UserUpdateViewModel GetSingleUser(int id);
+        void UpdateUser(UserUpdateViewModel userUVM);
+
     }
 }

@@ -5,7 +5,7 @@ using ThreeLayerArchitecture.Utility;
 
 namespace ThreeLayerArchitecture.BAL
 {
-    public class UserRepositorySQLDB: IUserRepository
+    public class UserRepositorySQLDB : IUserRepository
     {
         private readonly SecondMvcappDbContext db;
         public UserRepositorySQLDB(SecondMvcappDbContext _db)
@@ -15,13 +15,13 @@ namespace ThreeLayerArchitecture.BAL
 
 
         public List<Gender> GetAllGenders()
-        {          
+        {
             var genders = db.Genders.ToList();
             return genders;
         }
-                
+
         public void CreateNewUser(UserRegistrationViewModel userVM)
-        {           
+        {
             //User user = new User(userVM);
 
             User user = new User();
@@ -60,7 +60,7 @@ namespace ThreeLayerArchitecture.BAL
 
 
         public List<UserRegistrationViewModel> GetAllUsers()
-        {            
+        {
 
             //List<User> usersPrevious = db.Users.ToList();
 
@@ -95,10 +95,52 @@ namespace ThreeLayerArchitecture.BAL
 
 
         public User GetUser(int id)
-        {           
+        {
             var user = db.Users.FirstOrDefault(user => user.Id == id);
             return user;
         }
 
+
+
+        public UserUpdateViewModel GetSingleUser(int id)
+        {
+            //var user =   db.Users.FirstOrDefault(user => user.Id == id); //never
+            //var user =   db.Users.SingleOrDefault(user => user.Id == id);//multiple records throws exception 
+
+            //var user = db.Users.Single(user => user.GenderId == 2);        //multilple throws //0 records throws exception
+            //var user =   db.Users.First(user => user.Id == id); //0 records throws exception
+
+
+
+            
+            User user = db.Users.Find(id);
+            UserUpdateViewModel userUpdateViewModel = null;
+            if (user != null)
+            {
+                userUpdateViewModel = new UserUpdateViewModel(user);
+            }
+
+            return userUpdateViewModel;
+
+        }
+
+        public void UpdateUser(UserUpdateViewModel userUVM)
+        {
+          var user =  db.Users.Find(userUVM.Id);
+            if(user != null)
+            {
+                user.FirstName = userUVM.FirstName;
+                user.LastName = userUVM.LastName;
+                user.MobileNumber = userUVM.MobileNumber;
+                user.AdharNumber = userUVM.AdharNumber;
+                user.GenderId = userUVM.GenderId;
+                user.Category = userUVM.Category;
+
+                db.Users.Update(user);
+                db.SaveChanges();
+            }
+
+         
+        }
     }
 }

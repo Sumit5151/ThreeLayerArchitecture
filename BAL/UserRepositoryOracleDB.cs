@@ -30,7 +30,17 @@ namespace ThreeLayerArchitecture.BAL
             throw new NotImplementedException();
         }
 
+        public UserUpdateViewModel GetSingleUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public User GetUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateUser(UserUpdateViewModel userUVM)
         {
             throw new NotImplementedException();
         }

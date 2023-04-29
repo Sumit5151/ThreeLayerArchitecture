@@ -98,35 +98,28 @@ namespace ThreeLayerArchitecture.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            return View("UserRegistration");
+
+          var userVM=  userRepository.GetSingleUser(id);
+            ViewBag.GenderList = userRepository.GetAllGenders();
+            ViewBag.CategoryList = userRepository.GetAllCatgories();
+
+            return View(userVM);
 
         }
 
         [HttpPost]
-        public IActionResult Update(UserRegistrationViewModel userVM)
+        public IActionResult Update(UserUpdateViewModel userUVM)
         {
-            
-
-            if (userVM.TermsConditions == false)
+            if(ModelState.IsValid == true)
             {
-                ModelState.AddModelError("TermsConditions", "Please accept terms and condition");
-            }
-            if (userVM.Category == null)
-            {
-                ModelState.AddModelError("Category", "Please select category");
-            }
-
-            if (ModelState.IsValid == true)
-            {
-                userRepository.CreateNewUser(userVM);
+                userRepository.UpdateUser(userUVM);
                 return RedirectToAction("Index");
-
             }
 
 
             ViewBag.GenderList = userRepository.GetAllGenders();
             ViewBag.CategoryList = userRepository.GetAllCatgories();
-            return View("UserRegistration", userVM);
+            return View(userUVM);
         }
     }
 }
