@@ -40,6 +40,11 @@ namespace ThreeLayerArchitecture.BAL
             throw new NotImplementedException();
         }
 
+        public bool IsEmailPresentInDB(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateUser(UserUpdateViewModel userUVM)
         {
             throw new NotImplementedException();

@@ -4,7 +4,7 @@ using ThreeLayerArchitecture.DAL;
 
 namespace ThreeLayerArchitecture.Models
 {
-    public class UserUpdateViewModel
+    public class UserUpdateViewModel: Iuser
     {
 
 

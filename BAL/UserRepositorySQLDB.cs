@@ -23,9 +23,9 @@ namespace ThreeLayerArchitecture.BAL
         public void CreateNewUser(UserRegistrationViewModel userVM)
         {
             //User user = new User(userVM);
-
+            UserUpdateViewModel userUpdateViewModel = null;
             User user = new User();
-            user.ConvertUserVMToUserDTO(userVM);
+            user.ConvertUserVMToUserDTO(userVM, userUpdateViewModel);
 
             db.Users.Add(user);
             db.SaveChanges();
@@ -129,18 +129,39 @@ namespace ThreeLayerArchitecture.BAL
           var user =  db.Users.Find(userUVM.Id);
             if(user != null)
             {
-                user.FirstName = userUVM.FirstName;
-                user.LastName = userUVM.LastName;
-                user.MobileNumber = userUVM.MobileNumber;
-                user.AdharNumber = userUVM.AdharNumber;
-                user.GenderId = userUVM.GenderId;
-                user.Category = userUVM.Category;
+
+
+
+                //user.FirstName = userUVM.FirstName;
+                //user.LastName = userUVM.LastName;
+                //user.MobileNumber = userUVM.MobileNumber;
+                //user.AdharNumber = userUVM.AdharNumber;
+                //user.GenderId = userUVM.GenderId;
+                //user.Category = userUVM.Category;
+                //UserRegistrationViewModel userRegistrationViewModel = null;
+                //user.ConvertUserVMToUserDTO(userRegistrationViewModel, userUVM);
+
+
+                user.ConvertUserVMToUserDTOForUpdateUser(userUVM);
+
 
                 db.Users.Update(user);
                 db.SaveChanges();
             }
 
          
+        }
+
+
+
+       public  bool IsEmailPresentInDB(string email)
+        {           
+
+            bool isEmailIdPresentInDB = db.Users.Any(x => x.Email == email);
+
+            return isEmailIdPresentInDB;
+
+
         }
     }
 }

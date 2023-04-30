@@ -6,17 +6,34 @@ namespace ThreeLayerArchitecture.Utility
     public static class ExtensionMetodDemo
     {
 
-        public static void ConvertUserVMToUserDTO(this User user, UserRegistrationViewModel userVM)
+        public static void ConvertUserVMToUserDTO(this User user, UserRegistrationViewModel userVM,
+                                                                     UserUpdateViewModel userUVM)
         {            
-            user.Email = userVM.Email;
-            user.FirstName = userVM.FirstName;
-            user.LastName = userVM.LastName;
-            user.GenderId = userVM.GenderId;
-            user.Password = userVM.Password;
-            user.MobileNumber = userVM.MobileNumber;
-            user.AdharNumber = userVM.AdharNumber;
-            user.Category = userVM.Category;
-            user.TermsConditions = userVM.TermsConditions;
+                   
+
+            if(userUVM  == null)
+            {
+                user.Email = userVM.Email;
+                user.Password = userVM.Password;
+                user.TermsConditions = userVM.TermsConditions;
+                user.FirstName = userVM.FirstName;
+                user.LastName = userVM.LastName;
+                user.GenderId = userVM.GenderId;
+                user.MobileNumber = userVM.MobileNumber;
+                user.AdharNumber = userVM.AdharNumber;
+                user.Category = userVM.Category;
+            }
+            else
+            {
+                user.FirstName = userUVM.FirstName;
+                user.LastName = userUVM.LastName;
+                user.GenderId = userUVM.GenderId;
+                user.MobileNumber = userUVM.MobileNumber;
+                user.AdharNumber = userUVM.AdharNumber;
+                user.Category = userUVM.Category;
+            }
+
+
         }
 
         public static void ConvertUserDTOToUserVM(this UserRegistrationViewModel userVM, User user)
@@ -30,6 +47,18 @@ namespace ThreeLayerArchitecture.Utility
             userVM.Category = user.Category;
             userVM.MobileNumber = user.MobileNumber;
             userVM.AdharNumber = user.AdharNumber;
+        }
+
+
+
+        public static void ConvertUserVMToUserDTOForUpdateUser(this User user, UserUpdateViewModel userUVM)
+        {
+            user.FirstName = userUVM.FirstName;
+            user.LastName = userUVM.LastName;
+            user.GenderId = userUVM.GenderId;
+            user.MobileNumber = userUVM.MobileNumber;
+            user.AdharNumber = userUVM.AdharNumber;
+            user.Category = userUVM.Category;
         }
 
     }

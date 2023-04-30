@@ -62,11 +62,9 @@ namespace ThreeLayerArchitecture.Controllers
         }
 
 
-        public IActionResult IsEmailIdValid(string Email)
+        public IActionResult IsEmailIdValid(string email)
         {
-            SecondMvcappDbContext db = new SecondMvcappDbContext();
-
-            var isEmailIdPresentInDB = db.Users.Any(u => u.Email == Email);
+          bool isEmailIdPresentInDB =  userRepository.IsEmailPresentInDB(email);
             if (isEmailIdPresentInDB == true)
             {
                 return Json("The Email id is present in the database please choose another email id");

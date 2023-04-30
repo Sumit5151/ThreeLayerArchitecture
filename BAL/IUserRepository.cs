@@ -13,6 +13,7 @@ namespace ThreeLayerArchitecture.BAL
          User GetUser(int id);
         UserUpdateViewModel GetSingleUser(int id);
         void UpdateUser(UserUpdateViewModel userUVM);
+        bool IsEmailPresentInDB(string email);
 
     }
 }

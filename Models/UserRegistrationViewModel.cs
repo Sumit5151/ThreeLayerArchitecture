@@ -4,7 +4,7 @@ using ThreeLayerArchitecture.DAL;
 
 namespace ThreeLayerArchitecture.Models
 {
-    public sealed class UserRegistrationViewModel
+    public sealed class UserRegistrationViewModel: Iuser
     {
 
 
