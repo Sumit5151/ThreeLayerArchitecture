@@ -2,6 +2,7 @@
 using ThreeLayerArchitecture.BAL;
 using ThreeLayerArchitecture.DAL;
 using ThreeLayerArchitecture.Models;
+using ViewModels;
 
 namespace ThreeLayerArchitecture.Controllers
 {

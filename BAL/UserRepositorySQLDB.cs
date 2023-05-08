@@ -2,6 +2,7 @@
 using ThreeLayerArchitecture.Models;
 using Microsoft.EntityFrameworkCore;
 using ThreeLayerArchitecture.Utility;
+using ViewModels;
 
 namespace ThreeLayerArchitecture.BAL
 {
@@ -117,7 +118,7 @@ namespace ThreeLayerArchitecture.BAL
             UserUpdateViewModel userUpdateViewModel = null;
             if (user != null)
             {
-                userUpdateViewModel = new UserUpdateViewModel(user);
+                //userUpdateViewModel = new UserUpdateViewModel(user);
             }
 
             return userUpdateViewModel;
